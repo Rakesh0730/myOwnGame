@@ -12,8 +12,8 @@ var score = 0;
 function preload(){
 
   backImage = loadImage("12571.png")
-  player = loadImage("spaceship");
-  starFuel = loadImage("111-1112062_8-point-star-gold.png");
+  player = loadImage("spaceship.png");
+  starFuel = loadImage("111-1112062_8-pointed-star-png-8-point-star-gold.png");
   obst = loadImage("asteroid-png-11553979318e3cee5taq4.png")
 
 }
