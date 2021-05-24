@@ -89,6 +89,7 @@ function spawnFuel()
   
    var starfuel = createSprite(250, 600, 40, 10);
    starfuel.addImage(starFuel);
+   starfuel.scale(0.5);
    starfuel.x =  random(200, 180);
    starfuel.velocityY = - 4;
   
@@ -112,6 +113,7 @@ function spawnObstacles()
 
     obstacle = createSprite(350, 400, 20, 20);
     obstacle.addImage(obstacleImage);
+    obstacle.scale(0.5);
     obstacle.velocityY = - 4;
 
     obstacle.lifetime = 100;
