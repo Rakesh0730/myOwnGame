@@ -80,10 +80,10 @@ function draw()
     
   
 }
-  
+ // code to spawn the fuel and obstacles.
 function spawnFuel()
 {
-  // code to spawn the food.
+  
   if(frameCount % 80 === 0)
   {
   
