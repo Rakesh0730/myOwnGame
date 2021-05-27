@@ -1,5 +1,5 @@
 var backImage, backgr;
-var player;
+var playerImg, player;
 var starfuel, starFuel;
 var obst, asteroid;
 
@@ -12,24 +12,26 @@ var score = 0;
 function preload(){
 
   backImage = loadImage("12571.png")
-  player = loadImage("spaceship.png");
+  playerImg = loadImage("spaceship.png");
   starFuel = loadImage("111-1112062_8-pointed-star-png-8-point-star-gold.png");
   obst = loadImage("asteroid-png-11553979318e3cee5taq4.png")
 
 }
 
 function setup(){
-  createCanvas(400,800);
+  createCanvas(400,600);
 
   backgr = createSprite(0, 0, 400, 800);
   backgr.addImage(backImage);
-  backgr.y = backgr.length / 2;
-  backgr.velocityY = -4;
+  backgr.velocityY = 1;
 
-  
-  obstacleGroup = new Group();
+  player = createSprite(190, 550, 20, 50);
+  player.addImage(playerImg);
+  player.scale = 0.3;
+
   FuelGroup = new Group();
-   
+  obstacleGroup = new Group();
+  
 }
 
 function draw()
@@ -42,26 +44,55 @@ function draw()
   if(gameState === PLAY)
   {
   
-    if(backgr.y < 100){
-      backgr.y = backgr.length / 2;
+    if(backgr.y > 800)
+   {
+     backgr.y = 600;
     }
   
+    
+
+   if(keyDown("left_arrow"))
+   {
+     player.x = player.x - 3;
+     
+    }
+    
+   if(keyDown("right_arrow"))
+   {
+     player.x = player.x + 3;  
+     
+    }
+
+    if(keyDown("up_arrow"))
+    {
+      player.y = player.y - 3;  
+      
+    }
+
+    if(keyDown("down_arrow"))
+    {
+      player.y = player.y + 3;
+       
+    }
+
     if(FuelGroup.isTouching(player))
-      {
+    {
 
-        FuelGroup.destroyEach();
-        score = score + 1;
+      FuelGroup.destroyEach();
+      score = score + 1;
 
-      }
+    }
   
-      spawnFuel();
-      spawnObstacles();
+    text("Score : " + score, 2000, 300);
+
+    spawnFuel();
+    spawnObstacles();
   
-      if(obstacleGroup.isTouching(player))
-      {
-        gameState = END;
-      }
-          
+    if(obstacleGroup.isTouching(player))
+    {
+      gameState = END;
+    }
+  
   }
   else if(gameState === END)
   {
@@ -74,24 +105,24 @@ function draw()
   
     textSize(30);
     fill(255);
-    text("Game Over!", 220, 300);
+    text("Game Over!", 100, 300);
   }
   
     
   
 }
- // code to spawn the fuel and obstacles.
+  
 function spawnFuel()
 {
-  
+  // code to spawn the food.
   if(frameCount % 80 === 0)
   {
   
    var starfuel = createSprite(250, 600, 40, 10);
    starfuel.addImage(starFuel);
-   starfuel.scale(0.5);
-   starfuel.x =  random(200, 180);
-   starfuel.velocityY = - 4;
+   starfuel.y =  random(180, 200);
+   starfuel.scale = 0.05;
+   starfuel.velocityY = 4;
   
    starfuel.lifetime = 300;
    player.depth = starfuel.depth + 1;
@@ -111,12 +142,12 @@ function spawnObstacles()
   if(World.frameCount % 300 === 0)
   {
 
-    obstacle = createSprite(350, 400, 20, 20);
-    obstacle.addImage(obstacleImage);
-    obstacle.scale(0.5);
-    obstacle.velocityY = - 4;
+    asteroid = createSprite(150, 150, 20, 20);
+    asteroid.addImage(obst);
+    asteroid.scale = 0.10;
+    asteroid.velocityY = 4;
 
-    obstacle.lifetime = 100;
+    asteroid.lifetime = 100;
     obstacleGroup.add(asteroid);
 
   }
